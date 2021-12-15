@@ -2,26 +2,23 @@
 
 from django.db import models
 
-from model_utils.models import TimeStampedModel
-
-
-class Beneficiary(TimeStampedModel):
+class Beneficiary(models.Model):
     pass
     
 
-class Facility(TimeStampedModel):
+class Facility(models.Model):
     pass
     
 
-class Province(TimeStampedModel):
+class Province(models.Model):
     pass
     
 
-class District(TimeStampedModel):
+class District(models.Model):
     pass
     
 
-class Ward(TimeStampedModel):
+class Ward(models.Model):
     pass
     
 
