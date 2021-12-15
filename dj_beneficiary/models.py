@@ -482,11 +482,3 @@ class OrganizationBeneficiary(models.Model):
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
 
-    def get_age(self):
-        """
-        Calculates the Beneficiaries age from birth date.
-        """
-        days_in_year = 365.2425
-        age = int((datetime.date.today() - self.date_of_birth).days / days_in_year)
-        return age
-
