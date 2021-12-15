@@ -77,4 +77,4 @@ Development commands
 Credits
 -------
 
-[Digital Prophets](https://digiprophets.com)  
+`Digital Prophets <https://digiprophets.com>`__
