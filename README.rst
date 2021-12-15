@@ -11,7 +11,7 @@ django-beneficiary
 .. image:: https://codecov.io/gh/sonlinux/dj-beneficiary/branch/master/graph/badge.svg
     :target: https://codecov.io/gh/sonlinux/dj-beneficiary
 
-A beneficiary in either health facility or in a project implementation.
+A beneficiary in either a health facility or in project implementation.
 
 Documentation
 -------------
