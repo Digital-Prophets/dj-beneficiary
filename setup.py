@@ -48,11 +48,11 @@ requirements = open('requirements.txt').readlines()
 setup(
     name='dj-beneficiary',
     version=version,
-    description="""A beneficiary in either health facility or in a project implementation.""",
+    description="""A beneficiary in either a health facility or in project implementation.""",
     long_description=readme + '\n\n' + history,
     author='Alison Mukoma',
     author_email='mukomalison@gmail.com',
-    url='https://github.com/sonlinux/dj-beneficiary',
+    url='https://github.com/Digital-Prophets/dj-beneficiary',
     packages=[
         'dj_beneficiary',
     ],
