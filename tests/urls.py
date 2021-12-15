@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals, absolute_import
 
-from django.conf.urls import url, include
+from django.urls import path, include
 from django.contrib import admin
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
-    url(r'^', include('dj_beneficiary.urls', namespace='dj_beneficiary')),
+    path('admin/', admin.site.urls, name='dj-beneficiary-admin'),
+    path('', include('dj_beneficiary.urls', namespace='beneficiary')),
 ]

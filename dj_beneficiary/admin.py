@@ -3,7 +3,8 @@
 from django.contrib import admin
 
 from .models import (
-   Beneficiary,
+   IndividualBeneficiary,
+   OrganizationBeneficiary,
    Facility,
    Province,
    District,
@@ -11,10 +12,13 @@ from .models import (
 )
 
 
-@admin.register(Beneficiary)
-class BeneficiaryAdmin(admin.ModelAdmin):
+@admin.register(IndividualBeneficiary)
+class IndividualBeneficiaryAdmin(admin.ModelAdmin):
     pass
 
+@admin.register(OrganizationBeneficiary)
+class OrganizationBeneficiaryAdmin(admin.ModelAdmin):
+    pass
 
 @admin.register(Facility)
 class FacilityAdmin(admin.ModelAdmin):

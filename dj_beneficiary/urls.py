@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from django.conf.urls import url
+from django.urls import path
 from django.views.generic import TemplateView
 
 from . import views
@@ -7,128 +7,128 @@ from . import views
 
 app_name = 'dj_beneficiary'
 urlpatterns = [
-    url(
-        regex="^Beneficiary/~create/$",
-        view=views.BeneficiaryCreateView.as_view(),
-        name='Beneficiary_create',
+    path(
+        "individualbeneficiary/create/",
+        view=views.IndividualBeneficiaryCreateView.as_view(),
+        name='IndividualBeneficiary_create',
     ),
-    url(
-        regex="^Beneficiary/(?P<pk>\d+)/~delete/$",
-        view=views.BeneficiaryDeleteView.as_view(),
-        name='Beneficiary_delete',
+    path(
+        "individualbeneficiary/(<int:pk>/delete/",
+        view=views.IndividualBeneficiaryDeleteView.as_view(),
+        name='IndividualBeneficiary_delete',
     ),
-    url(
-        regex="^Beneficiary/(?P<pk>\d+)/$",
-        view=views.BeneficiaryDetailView.as_view(),
-        name='Beneficiary_detail',
+    path(
+        "individualbeneficiary/<int:pk>/",
+        view=views.IndividualBeneficiaryDetailView.as_view(),
+        name='individual_eneficiary_detail',
     ),
-    url(
-        regex="^Beneficiary/(?P<pk>\d+)/~update/$",
-        view=views.BeneficiaryUpdateView.as_view(),
-        name='Beneficiary_update',
+    path(
+        "individualbeneficiary/<int:pk>/update/",
+        view=views.IndividualBeneficiaryUpdateView.as_view(),
+        name='individual_eneficiary_update',
     ),
-    url(
-        regex="^Beneficiary/$",
-        view=views.BeneficiaryListView.as_view(),
-        name='Beneficiary_list',
+    path(
+        "individualbeneficiary/",
+        view=views.IndividualBeneficiaryListView.as_view(),
+        name='individualbeneficiary_list',
     ),
-	url(
-        regex="^Facility/~create/$",
+	path(
+        "Facility/create/",
         view=views.FacilityCreateView.as_view(),
         name='Facility_create',
     ),
-    url(
-        regex="^Facility/(?P<pk>\d+)/~delete/$",
+    path(
+        "Facility/<int:pk>/delete/",
         view=views.FacilityDeleteView.as_view(),
         name='Facility_delete',
     ),
-    url(
-        regex="^Facility/(?P<pk>\d+)/$",
+    path(
+        "Facility/<int:pk>/",
         view=views.FacilityDetailView.as_view(),
         name='Facility_detail',
     ),
-    url(
-        regex="^Facility/(?P<pk>\d+)/~update/$",
+    path(
+        "Facility/<int:pk>/update/",
         view=views.FacilityUpdateView.as_view(),
         name='Facility_update',
     ),
-    url(
-        regex="^Facility/$",
+    path(
+        "Facility/",
         view=views.FacilityListView.as_view(),
         name='Facility_list',
     ),
-	url(
-        regex="^Province/~create/$",
+	path(
+        "Province/create/",
         view=views.ProvinceCreateView.as_view(),
         name='Province_create',
     ),
-    url(
-        regex="^Province/(?P<pk>\d+)/~delete/$",
+    path(
+        "Province/<int:pk>/delete/",
         view=views.ProvinceDeleteView.as_view(),
         name='Province_delete',
     ),
-    url(
-        regex="^Province/(?P<pk>\d+)/$",
+    path(
+        "Province/<int:pk>/",
         view=views.ProvinceDetailView.as_view(),
         name='Province_detail',
     ),
-    url(
-        regex="^Province/(?P<pk>\d+)/~update/$",
+    path(
+        "Province/<int:pk>/update/",
         view=views.ProvinceUpdateView.as_view(),
         name='Province_update',
     ),
-    url(
-        regex="^Province/$",
+    path(
+        "Province/",
         view=views.ProvinceListView.as_view(),
         name='Province_list',
     ),
-	url(
-        regex="^District/~create/$",
+	path(
+        "District/create/",
         view=views.DistrictCreateView.as_view(),
         name='District_create',
     ),
-    url(
-        regex="^District/(?P<pk>\d+)/~delete/$",
+    path(
+        "District/<int:pk>/delete/",
         view=views.DistrictDeleteView.as_view(),
         name='District_delete',
     ),
-    url(
-        regex="^District/(?P<pk>\d+)/$",
+    path(
+        "District/<int:pk>/",
         view=views.DistrictDetailView.as_view(),
         name='District_detail',
     ),
-    url(
-        regex="^District/(?P<pk>\d+)/~update/$",
+    path(
+        "District/<int:pk>/update/",
         view=views.DistrictUpdateView.as_view(),
         name='District_update',
     ),
-    url(
-        regex="^District/$",
+    path(
+        "District/",
         view=views.DistrictListView.as_view(),
         name='District_list',
     ),
-	url(
-        regex="^Ward/~create/$",
+	path(
+        "Ward/create/",
         view=views.WardCreateView.as_view(),
         name='Ward_create',
     ),
-    url(
-        regex="^Ward/(?P<pk>\d+)/~delete/$",
+    path(
+        "Ward/<int:pk>/delete/",
         view=views.WardDeleteView.as_view(),
         name='Ward_delete',
     ),
-    url(
-        regex="^Ward/(?P<pk>\d+)/$",
+    path(
+        "Ward/<int:pk>/",
         view=views.WardDetailView.as_view(),
         name='Ward_detail',
     ),
-    url(
-        regex="^Ward/(?P<pk>\d+)/~update/$",
+    path(
+        "Ward/<int:pk>/update/",
         view=views.WardUpdateView.as_view(),
         name='Ward_update',
     ),
-    url(
-        regex="^Ward/$",
+    path(
+        "Ward/",
         view=views.WardListView.as_view(),
         name='Ward_list',
     ),

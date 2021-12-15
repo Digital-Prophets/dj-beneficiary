@@ -8,7 +8,7 @@ from django.views.generic import (
 )
 
 from .models import (
-	Beneficiary,
+	IndividualBeneficiary,
 	Facility,
 	Province,
 	District,
@@ -16,29 +16,29 @@ from .models import (
 )
 
 
-class BeneficiaryCreateView(CreateView):
+class IndividualBeneficiaryCreateView(CreateView):
 
-    model = Beneficiary
-
-
-class BeneficiaryDeleteView(DeleteView):
-
-    model = Beneficiary
+    model = IndividualBeneficiary
 
 
-class BeneficiaryDetailView(DetailView):
+class IndividualBeneficiaryDeleteView(DeleteView):
 
-    model = Beneficiary
-
-
-class BeneficiaryUpdateView(UpdateView):
-
-    model = Beneficiary
+    model = IndividualBeneficiary
 
 
-class BeneficiaryListView(ListView):
+class IndividualBeneficiaryDetailView(DetailView):
 
-    model = Beneficiary
+    model = IndividualBeneficiary
+
+
+class IndividualBeneficiaryUpdateView(UpdateView):
+
+    model = IndividualBeneficiary
+
+
+class IndividualBeneficiaryListView(ListView):
+
+    model = IndividualBeneficiary
 
 
 class FacilityCreateView(CreateView):
