@@ -420,34 +420,47 @@ class OrganizationBeneficiary(models.Model):
         blank=True
     )
     total_beneficiaries = models.IntegerField(
+        _("Total Individual Beneficiary Count"),
         null=True, 
         blank=True
     )
     total_females = models.IntegerField(
+        _("Total Female Count"),
         null=True, 
         blank=True
     )
     total_males = models.IntegerField(
+        _("Total Male Count"),
         null=True, 
         blank=True
     )
     total_hhs = models.IntegerField(
+        _("Total HHs"),
         null=True, 
         blank=True
     )
     female_hhs = models.IntegerField(
+        _("Female HHs"),
+        null=True, 
+        blank=True
+    )
+    below_sixteen = models.IntegerField(
+        _("Below 16 Years Old"),
         null=True, 
         blank=True
     )
     sixteen_to_thirty = models.IntegerField(
+        _("16 to 30 Years Old"),
         null=True, 
         blank=True
     )
     thirty_to_fourty_five = models.IntegerField(
+        _("30 to 40 Years Old"),
         null=True, 
         blank=True
     )
     above_fourty_five = models.IntegerField(
+        _("Above 40 Years Old"),
         null=True, 
         blank=True
     )
@@ -464,6 +477,7 @@ class OrganizationBeneficiary(models.Model):
         blank=True
     )
     cell = models.CharField(
+        _("Phone Number"),
         max_length=100,
         null=True,
         blank=True
