@@ -457,7 +457,6 @@ class OrganizationBeneficiary(models.Model):
         null=True,
         blank=True
     )
-
     email = models.EmailField(
         _("Email"),
         max_length=200,
@@ -480,5 +479,5 @@ class OrganizationBeneficiary(models.Model):
         ordering = ["created"]
 
     def __str__(self):
-        return f"{self.first_name} {self.last_name}"
+        return f"{self.name}"
 
