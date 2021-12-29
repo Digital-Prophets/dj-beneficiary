@@ -488,6 +488,8 @@ class OrganizationBeneficiary(models.Model):
     )
     created = models.DateTimeField(auto_now_add=True)
     class Meta:
+        # NOTE: This means we can not reuse this model directly but subclass it with inheritance and add extra fields or override existing fields
+        abstract = True 
         verbose_name = "Beneficiary Organization"
         verbose_name_plural = "Beneficiary Organizations"
         ordering = ["created"]
