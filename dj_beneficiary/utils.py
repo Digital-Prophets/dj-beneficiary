@@ -1,7 +1,7 @@
 import uuid
 
 
-def generate_uuid(chars=None, length=8, upper=True):
+def generate_uuid(chars=None, length=8, upper=False):
     """
     Generates a UUID string.
 
