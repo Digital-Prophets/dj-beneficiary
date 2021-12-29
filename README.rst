@@ -62,6 +62,10 @@ Are you writing code to improve this package?
 
     virtualenv venv
     source venv/bin/activate
+    pip install -r requirements.txt
+    pip install -r requirements-dev.txt
+    
+    # then you can work with regular django development commands
     python manage.py migrate
     python manage.py collectstatic
     python manage.py createsuperuser
