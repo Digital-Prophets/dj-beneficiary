@@ -59,6 +59,7 @@ Running in Development
 Are you writing code to improve this package?
 
 ::
+
     virtualenv venv
     source venv/bin/activate
     python manage.py migrate
