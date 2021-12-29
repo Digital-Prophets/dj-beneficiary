@@ -4,7 +4,6 @@ from django.contrib import admin
 
 from .models import (
    IndividualBeneficiary,
-   OrganizationBeneficiary,
    Facility,
    Province,
    District,
@@ -16,9 +15,9 @@ from .models import (
 class IndividualBeneficiaryAdmin(admin.ModelAdmin):
     pass
 
-@admin.register(OrganizationBeneficiary)
-class OrganizationBeneficiaryAdmin(admin.ModelAdmin):
-    pass
+# @admin.register(OrganizationBeneficiary)
+# class OrganizationBeneficiaryAdmin(admin.ModelAdmin):
+#     pass
 
 @admin.register(Facility)
 class FacilityAdmin(admin.ModelAdmin):
