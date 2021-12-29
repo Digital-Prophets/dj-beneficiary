@@ -9,7 +9,6 @@ from django.utils.translation import gettext_lazy as _
 from imagekit.processors import ResizeToFill
 from imagekit.models import ProcessedImageField
 
-
 class Province(models.Model):
     """
     Implements province properties and appropriate methods.

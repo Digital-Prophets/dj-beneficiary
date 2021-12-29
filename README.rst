@@ -53,6 +53,26 @@ Features
 
 * TODO
 
+Running in Development
+----------------------
+
+Are you writing code to improve this package?
+
+::
+
+    virtualenv venv
+    source venv/bin/activate
+    pip install -r requirements.txt
+    pip install -r requirements_dev.txt
+    
+    # then you can work with regular django development commands
+    python manage.py migrate
+    python manage.py collectstatic
+    python manage.py createsuperuser
+    python manage.py runserver
+
+    # and happy coding!
+
 Running Tests
 -------------
 
