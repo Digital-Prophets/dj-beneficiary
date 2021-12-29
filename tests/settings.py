@@ -29,8 +29,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
     'dj_beneficiary',
+    'dj_beneficiary.test_utils.apps.TestUtilsConfig'
     
 
     # if your app has other dependencies that need to be added to the site
