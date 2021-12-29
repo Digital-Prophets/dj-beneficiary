@@ -53,6 +53,21 @@ Features
 
 * TODO
 
+Running in Development
+----------------------
+
+Are you writing code to improve this package?
+
+::
+    virtualenv venv
+    source venv/bin/activate
+    python manage.py migrate
+    python manage.py collectstatic
+    python manage.py createsuperuser
+    python manage.py runserver
+
+    # and happy coding!
+
 Running Tests
 -------------
 
