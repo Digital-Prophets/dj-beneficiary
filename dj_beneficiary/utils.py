@@ -12,6 +12,12 @@ def generate_uuid(chars=None, length=8, upper=False):
 
     Return:
         string
+
+    Usage:
+        >>> generate_uuid(chars="BeneficiaryOrg", length=8, upper=True)
+        >>> BeneficiaryOrg-DC4750F5
+        >>> generate_uuid(chars="BeneficiaryOrg", length=8, upper=False)
+        >>> BeneficiaryOrg-681ffbcb
     """
     uuid_chars = str(uuid.uuid4())[:length]
 
@@ -21,7 +27,7 @@ def generate_uuid(chars=None, length=8, upper=False):
     complete_string = ""
 
     if chars:
-        complete_string = f"{chars}-{uuid_chars.upper()}"
+        complete_string = f"{chars}-{uuid_chars}"
     else:
         complete_string = uuid_chars
 
