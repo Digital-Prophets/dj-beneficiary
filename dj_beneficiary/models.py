@@ -9,7 +9,7 @@ from django.utils.translation import gettext_lazy as _
 from imagekit.processors import ResizeToFill
 from imagekit.models import ProcessedImageField
 
-class BaseProvinceAbstract(models.Model):
+class AbstractProvince(models.Model):
     """
     Implements province properties and appropriate methods.
     """
@@ -21,9 +21,12 @@ class BaseProvinceAbstract(models.Model):
         return self.name
     class Meta:
         abstract = True
+        verbose_name = "Province"
+        verbose_name_plural = "Provinces"
+        ordering = ["-created"]
 
 
-class BaseDistrictAbstract(models.Model):
+class AbstractDistrict(models.Model):
     """
     Define district properties and appropriate methods.
     """
@@ -41,7 +44,7 @@ class BaseDistrictAbstract(models.Model):
         return self.name
 
 
-class BaseWardAbstract(models.Model):
+class AbstractWard(models.Model):
     """
     Defines a Ward and all its approriate implemeentation methods.
     """
@@ -100,7 +103,7 @@ class FacilityType(models.Model):
     def __str__(self):
         return self.name.title()
 
-class BaseFacilityAbstract(models.Model):
+class Facility(models.Model):
     hmis_code = models.CharField(
         _('HMIS Code'),
         max_length=100,
@@ -130,14 +133,15 @@ class BaseFacilityAbstract(models.Model):
     )
 
     class Meta:
-        abstract = True
+        verbose_name = 'Facility'
+        verbose_name_plural = 'Facilities'
 
     def save(self):
         if self.facility_type.name.lower() in self.name.lower():
-            self.name = (self.name).title()
+            self.name = self.name.title()
         else:
             f"{self.name.title()} {self.facility_type.name.title()}"
-        super(BaseFacilityAbstract, self).save()
+        super(Facility, self).save()
 
     def __str__(self):
         return str(self.name)
@@ -154,7 +158,7 @@ SEX_CHOICES = (
     ("Female", _("Female"))
 )
 
-class BaseAgentAbstract(models.Model):
+class Agent(models.Model):
     """
     Create agent detail table with its attributes or columns.
     """
@@ -185,7 +189,8 @@ class BaseAgentAbstract(models.Model):
 
     class Meta:
         # NOTE: This means we can not reuse this model directly but subclass it with inheritance and add extra fields or override existing fields
-        abstract = True 
+        verbose_name = 'Agent'
+        verbose_name_plural = 'Agents'
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
@@ -298,6 +303,19 @@ class BaseIndividualBeneficiaryAbstract(models.Model):
         null=True,
         blank=True,
     )
+    agent = models.ForeignKey(
+        Agent,
+        on_delete=models.PROTECT,
+        null=True,
+        blank=True
+    )
+    registered_facility = models.ForeignKey(
+        'Facility',
+        on_delete=models.PROTECT,
+        null=True,
+        blank=True,
+        related_name="registerd_facility"
+    )
     date_of_birth = models.DateField(_("Date of Birth"))
     marital_status = models.CharField(
         _("Marital Status"),
@@ -338,6 +356,8 @@ class BaseIndividualBeneficiaryAbstract(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     class Meta:
         abstract = True
+        verbose_name = "Beneficiary Person"
+        verbose_name_plural = "Beneficiary Persons"
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
