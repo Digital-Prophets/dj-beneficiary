@@ -5,7 +5,7 @@ from django.contrib import admin
 from dj_beneficiary.test_utils.models import (
     District,
     IndividualBeneficiary,
-    OrganizationBeneficiary,
+    Beneficiary,
     Province,
     Ward,
 )
@@ -16,8 +16,8 @@ class IndividualBeneficiaryAdmin(admin.ModelAdmin):
     pass
 
 
-@admin.register(OrganizationBeneficiary)
-class OrganizationBeneficiaryAdmin(admin.ModelAdmin):
+@admin.register(Beneficiary)
+class BeneficiaryAdmin(admin.ModelAdmin):
     pass
 
 
