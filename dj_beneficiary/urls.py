@@ -3,6 +3,8 @@ from django.urls import path
 
 from dj_beneficiary import views
 
+app_name = 'dj-beneficiary'
+
 urlpatterns = [
     path(
         "Facility/create/",
