@@ -2,119 +2,83 @@
 
 import datetime
 from django.db import models
-from django.urls import reverse
-from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 from imagekit.processors import ResizeToFill
 from imagekit.models import ProcessedImageField
 
-class AbstractProvince(models.Model):
+
+class AbstractLocation(models.Model):
     """
-    Implements province properties and appropriate methods.
+    Implements location properties and appropriate methods.
     """
-
-    name = models.CharField(_("Province"), max_length=255)
-    created = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return self.name
-    class Meta:
-        abstract = True
-        verbose_name = "Province"
-        verbose_name_plural = "Provinces"
-        ordering = ["-created"]
-
-
-class AbstractDistrict(models.Model):
-    """
-    Define district properties and appropriate methods.
-    """
-
     name = models.CharField(
-        _("District"),
-        max_length=255
-    )
+        _("Name"),
+        max_length=200,
+        null=True, 
+        blank=True)
     created = models.DateTimeField(auto_now_add=True)
-
     class Meta:
         abstract = True
+        verbose_name = "Location"
+        verbose_name_plural = "Locations"
 
     def __str__(self):
         return self.name
 
-
-class AbstractWard(models.Model):
-    """
-    Defines a Ward and all its approriate implemeentation methods.
-    """
-
-    name = models.CharField(
-        _("District"),
-        max_length=255
-    )
-
-
-    created = models.DateTimeField(auto_now_add=True)
-
-    class Meta:
-        abstract = True
-
-    def __str__(self):
-        return self.name
 
 NGO = 1
 COMPANY = 2
 GOVERNMENT = 3
 OTHER = 4
 IP_TYPES = (
-    (NGO, _('Non-Profit Organization')),
-    (COMPANY, _('Company')),
-    (GOVERNMENT, _('Government')),
-    (OTHER, _('Other')),
+    (NGO, _("Non-Profit Organization")),
+    (COMPANY, _("Company")),
+    (GOVERNMENT, _("Government")),
+    (OTHER, _("Other")),
 )
+
+
 class ImplementingPartner(models.Model):
     name = models.CharField(
-        _('Name'),
+        _("Name"),
         max_length=200,
     )
 
     ip_type = models.IntegerField(
-        _('Type'),
+        _("Type"),
         choices=IP_TYPES,
         default=NGO,
     )
 
     is_active = models.BooleanField(
-        _('Is Active'),
+        _("Is Active"),
         default=True,
-        help_text=_('Is still an active Implementing Partner'),
+        help_text=_("Is still an active Implementing Partner"),
     )
 
     def __str__(self):
         return self.name
 
+
 class FacilityType(models.Model):
     name = models.CharField(
-        _('Facility Type Name'),
+        _("Facility Type Name"),
         max_length=200,
     )
 
     def __str__(self):
         return self.name.title()
 
+
 class Facility(models.Model):
-    hmis_code = models.CharField(
-        _('HMIS Code'),
-        max_length=100,
-        null=True,
-        blank=True
-    )
+    hmis_code = models.CharField(_("HMIS Code"), max_length=100, null=True, blank=True)
     name = models.CharField(
-        _('Name'),
+        _("Name"),
         max_length=200,
         help_text=_(
-            "Just enter name without 'Hostpial' or 'Clinic`, i.e for `Kitwe General Hospital` just enter `Kitwe General`.")
+            "Just enter name without 'Hostpial' or 'Clinic`, i.e for `Kitwe General Hospital` just enter `Kitwe General`."
+        ),
     )
     facility_type = models.ForeignKey(
         FacilityType,
@@ -129,12 +93,12 @@ class Facility(models.Model):
         help_text=_("Related Implementing Partner."),
         max_length=250,
         null=True,
-        blank=True
+        blank=True,
     )
 
     class Meta:
-        verbose_name = 'Facility'
-        verbose_name_plural = 'Facilities'
+        verbose_name = "Facility"
+        verbose_name_plural = "Facilities"
 
     def save(self):
         if self.facility_type.name.lower() in self.name.lower():
@@ -151,17 +115,16 @@ GENDER_CHOICES = (
     ("Male", _("Male")),
     ("Female", _("Female")),
     ("Transgender", _("Transgender")),
-    ("Other", _("Other"))
+    ("Other", _("Other")),
 )
-SEX_CHOICES = (
-    ("Male", _("Male")),
-    ("Female", _("Female"))
-)
+SEX_CHOICES = (("Male", _("Male")), ("Female", _("Female")))
+
 
 class Agent(models.Model):
     """
     Create agent detail table with its attributes or columns.
     """
+
     first_name = models.CharField(
         _("First Name"),
         max_length=200,
@@ -171,34 +134,27 @@ class Agent(models.Model):
         max_length=200,
     )
     birthdate = models.DateField(
-        _("Birth Date"),
-        auto_now_add=False,
-        null=True,
-        blank=True
+        _("Birth Date"), auto_now_add=False, null=True, blank=True
     )
-    agent_id = models.CharField(
-        max_length=100,
-        editable=False
-    )
+    agent_id = models.CharField(max_length=100, editable=False)
     gender = models.CharField(
-        _("Gender"),
-        max_length=50,
-        choices=GENDER_CHOICES,
-        default=GENDER_CHOICES[3][0]
+        _("Gender"), max_length=50, choices=GENDER_CHOICES, default=GENDER_CHOICES[3][0]
     )
 
     class Meta:
         # NOTE: This means we can not reuse this model directly but subclass it with inheritance and add extra fields or override existing fields
-        verbose_name = 'Agent'
-        verbose_name_plural = 'Agents'
+        verbose_name = "Agent"
+        verbose_name_plural = "Agents"
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
 
-class BaseIndividualBeneficiaryAbstract(models.Model):
+
+class AbstractIndividualBeneficiary(models.Model):
     """
     Implements the Beneficiary object as an individual Person.
     """
+
     ART_STATUS_CHOICES = (
         ("Enrolled", _("Enrolled")),
         ("Not Enrolled", _("Not Enrolled")),
@@ -235,67 +191,39 @@ class BaseIndividualBeneficiaryAbstract(models.Model):
         ("phd", _("PHD")),
     )
 
-    first_name = models.CharField(
-        _("First Name"),
-        max_length=200
-    )
-    last_name = models.CharField(
-        _("Last Name"),
-        max_length=200
-    )
+    first_name = models.CharField(_("First Name"), max_length=200)
+    last_name = models.CharField(_("Last Name"), max_length=200)
     other_name = models.CharField(
-        _("Other Name"),
-        max_length=200,
-        null=True,
-        blank=True
+        _("Other Name"), max_length=200, null=True, blank=True
     )
     gender = models.CharField(
         _("Gender"),
         max_length=100,
         choices=GENDER_CHOICES,
-        default=GENDER_CHOICES[3][0]
+        default=GENDER_CHOICES[3][0],
     )
-    sex = models.CharField(
-        _("Sex"),
-        max_length=100,
-        choices=SEX_CHOICES
-    )
+    sex = models.CharField(_("Sex"), max_length=100, choices=SEX_CHOICES)
     profile_photo = ProcessedImageField(
-        upload_to='profile_photo',
+        upload_to="profile_photo",
         processors=[ResizeToFill(512, 512)],
-        format='JPEG',
-        options={'quality': 100},
+        format="JPEG",
+        options={"quality": 100},
         null=True,
-        blank=True
+        blank=True,
     )
     phone_number = models.CharField(
-        _("Phone Number"),
-        max_length=20,
-        null=True,
-        blank=True
+        _("Phone Number"), max_length=20, null=True, blank=True
     )
-    email = models.EmailField(
-        _("Email"),
-        max_length=200,
-        null=True,
-        blank=True
-    )
-    beneficiary_id = models.CharField(
-        max_length=100,
-        editable=False
-    )
+    email = models.EmailField(_("Email"), max_length=200, null=True, blank=True)
+    beneficiary_id = models.CharField(max_length=100, editable=False)
     art_status = models.CharField(
         _("ART Status"),
         max_length=100,
         choices=ART_STATUS_CHOICES,
         null=True,
-        blank=True
+        blank=True,
     )
-    last_vl = models.IntegerField(
-        _("Last Viral Load"),
-        null=True,
-        blank=True
-    )
+    last_vl = models.IntegerField(_("Last Viral Load"), null=True, blank=True)
     hiv_status = models.CharField(
         _("HIV Status"),
         choices=HIV_STATUS,
@@ -303,18 +231,13 @@ class BaseIndividualBeneficiaryAbstract(models.Model):
         null=True,
         blank=True,
     )
-    agent = models.ForeignKey(
-        Agent,
-        on_delete=models.PROTECT,
-        null=True,
-        blank=True
-    )
+    agent = models.ForeignKey(Agent, on_delete=models.PROTECT, null=True, blank=True)
     registered_facility = models.ForeignKey(
-        'Facility',
+        "Facility",
         on_delete=models.PROTECT,
         null=True,
         blank=True,
-        related_name="registerd_facility"
+        related_name="registerd_facility",
     )
     date_of_birth = models.DateField(_("Date of Birth"))
     marital_status = models.CharField(
@@ -322,30 +245,23 @@ class BaseIndividualBeneficiaryAbstract(models.Model):
         choices=MARITAL_STATUS,
         max_length=100,
         null=True,
-        blank=True
+        blank=True,
     )
     name_of_spouse = models.CharField(
-        _("Phone Number"),
-        max_length=200,
-        null=True,
-        blank=True
+        _("Phone Number"), max_length=200, null=True, blank=True
     )
     number_of_children = models.IntegerField(
-        _("Number of children"),
-        null=True,
-        blank=True
+        _("Number of children"), null=True, blank=True
     )
     number_of_siblings = models.IntegerField(
-        _("Number of siblings"),
-        null=True,
-        blank=True
+        _("Number of siblings"), null=True, blank=True
     )
     education_level = models.CharField(
         _("Education level"),
         max_length=300,
         null=True,
         blank=True,
-        choices=EDUCATION_LEVEL
+        choices=EDUCATION_LEVEL,
     )
     address = models.TextField(
         _("Address"),
@@ -354,6 +270,7 @@ class BaseIndividualBeneficiaryAbstract(models.Model):
     )
     alive = models.BooleanField(default=True)
     created = models.DateTimeField(auto_now_add=True)
+
     class Meta:
         abstract = True
         verbose_name = "Beneficiary Person"
@@ -371,7 +288,7 @@ class BaseIndividualBeneficiaryAbstract(models.Model):
         return age
 
 
-class BaseOrganizationBeneficiaryAbstract(models.Model):
+class AbstractOrganizationBeneficiary(models.Model):
     """
     Implements the Beneficiary object an organizational entity.
     i.e co-oroperative, business firm etc.
@@ -383,95 +300,52 @@ class BaseOrganizationBeneficiaryAbstract(models.Model):
         ("Other", _("Other")),
     )
 
-    name = models.CharField(
-        _("Organization Name"),
-        max_length=200
-    )
+    name = models.CharField(_("Organization Name"), max_length=200)
     org_type = models.CharField(
         _("Organization Type"),
         max_length=100,
         choices=BENEFICIARY_ORGANIZATION_TYPE,
     )
     logo = ProcessedImageField(
-        upload_to='org_logos',
+        upload_to="org_logos",
         processors=[ResizeToFill(512, 512)],
-        format='JPEG',
-        options={'quality': 100},
+        format="JPEG",
+        options={"quality": 100},
         null=True,
-        blank=True
+        blank=True,
     )
     total_beneficiaries = models.IntegerField(
-        _("Total Individual Beneficiary Count"),
-        null=True, 
-        blank=True
+        _("Total Individual Beneficiary Count"), null=True, blank=True
     )
-    total_females = models.IntegerField(
-        _("Total Female Count"),
-        null=True, 
-        blank=True
-    )
-    total_males = models.IntegerField(
-        _("Total Male Count"),
-        null=True, 
-        blank=True
-    )
-    total_hhs = models.IntegerField(
-        _("Total HHs"),
-        null=True, 
-        blank=True
-    )
-    female_hhs = models.IntegerField(
-        _("Female HHs"),
-        null=True, 
-        blank=True
-    )
-    below_sixteen = models.IntegerField(
-        _("Below 16 Years Old"),
-        null=True, 
-        blank=True
-    )
+    total_females = models.IntegerField(_("Total Female Count"), null=True, blank=True)
+    total_males = models.IntegerField(_("Total Male Count"), null=True, blank=True)
+    total_hhs = models.IntegerField(_("Total HHs"), null=True, blank=True)
+    female_hhs = models.IntegerField(_("Female HHs"), null=True, blank=True)
+    below_sixteen = models.IntegerField(_("Below 16 Years Old"), null=True, blank=True)
     sixteen_to_thirty = models.IntegerField(
-        _("16 to 30 Years Old"),
-        null=True, 
-        blank=True
+        _("16 to 30 Years Old"), null=True, blank=True
     )
     thirty_to_fourty_five = models.IntegerField(
-        _("30 to 40 Years Old"),
-        null=True, 
-        blank=True
+        _("30 to 40 Years Old"), null=True, blank=True
     )
     above_fourty_five = models.IntegerField(
-        _("Above 40 Years Old"),
-        null=True, 
-        blank=True
+        _("Above 40 Years Old"), null=True, blank=True
     )
 
-    description = models.TextField(
-        _("Description"),
-        null=True,
-        blank=True
-    )
-    email = models.EmailField(
-        _("Email"),
-        max_length=200,
-        null=True,
-        blank=True
-    )
-    cell = models.CharField(
-        _("Phone Number"),
-        max_length=100,
-        null=True,
-        blank=True
-    )
+    description = models.TextField(_("Description"), null=True, blank=True)
+    email = models.EmailField(_("Email"), max_length=200, null=True, blank=True)
+    cell = models.CharField(_("Phone Number"), max_length=100, null=True, blank=True)
     registered_date = models.DateField(
         null=True,
         blank=True,
     )
     created = models.DateTimeField(auto_now_add=True)
+
     class Meta:
         # NOTE: This means we can not reuse this model directly but subclass it with inheritance and add extra fields or override existing fields
-        abstract = True 
+        abstract = True
+        verbose_name = "Beneficiary Organization"
+        verbose_name_plural = "Beneficiary Organizations"
 
     def __str__(self):
         return f"{self.name}"
-
