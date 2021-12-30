@@ -2,69 +2,36 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 from dj_beneficiary.models import (
-    BaseAgentAbstract,
-    BaseDistrictAbstract,
-    BaseFacilityAbstract,
+    AbstractDistrict,
     BaseIndividualBeneficiaryAbstract,
     BaseOrganizationBeneficiaryAbstract,
-    BaseProvinceAbstract,
-    BaseWardAbstract,
-    ImplementingPartner,
-    FacilityType
+    AbstractProvince,
+    AbstractWard,
+    Facility,
 )
 
 
 # Put your test models here
-class Province(BaseProvinceAbstract):
+class Province(AbstractProvince):
     pass
 
 
-class District(BaseDistrictAbstract):
+class District(AbstractDistrict):
     province = models.ForeignKey(
         Province,
         on_delete=models.CASCADE,
     )
 
 
-class Ward(BaseWardAbstract):
+class Ward(AbstractWard):
     district = models.ForeignKey(
         District,
         on_delete=models.CASCADE,
     )
-
-
-class Facility(BaseFacilityAbstract):
-    district = models.ForeignKey(
-        District,
-        default=1,
-        on_delete=models.CASCADE,
-        help_text=_("District in which the facility is located"),
-        max_length=250,
-    )
-    facility_type = models.ForeignKey(
-        FacilityType,
-        default=1,
-        on_delete=models.CASCADE,
-        help_text=_("Facility Type, i.e 'Hospital, Clinic etc"),
-        max_length=250,
-    )
-    implementing_partner = models.ForeignKey(
-        ImplementingPartner,
-        on_delete=models.SET_NULL,
-        help_text=_("Related Implementing Partner."),
-        max_length=250,
-        null=True,
-        blank=True
-    )
-
-
-class Agent(BaseAgentAbstract):
-    pass
-
 
 class IndividualBeneficiary(BaseIndividualBeneficiaryAbstract):
     registered_facility = models.ForeignKey(
-        'Facility',
+        Facility,
         on_delete=models.PROTECT,
         null=True,
         blank=True,
