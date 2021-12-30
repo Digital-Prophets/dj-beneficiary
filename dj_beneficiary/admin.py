@@ -2,41 +2,24 @@
 
 from django.contrib import admin
 
-from .models import (
-   IndividualBeneficiary,
-   Facility,
-   Province,
-   District,
-   Ward,
-)
+from dj_beneficiary.models import Agent, FacilityType, Facility, ImplementingPartner
 
 
-@admin.register(IndividualBeneficiary)
-class IndividualBeneficiaryAdmin(admin.ModelAdmin):
+@admin.register(Agent)
+class AgentAdmin(admin.ModelAdmin):
     pass
 
-# @admin.register(OrganizationBeneficiary)
-# class OrganizationBeneficiaryAdmin(admin.ModelAdmin):
-#     pass
+
+@admin.register(FacilityType)
+class FacilityTypeAdmin(admin.ModelAdmin):
+    pass
+
 
 @admin.register(Facility)
 class FacilityAdmin(admin.ModelAdmin):
     pass
 
 
-@admin.register(Province)
-class ProvinceAdmin(admin.ModelAdmin):
+@admin.register(ImplementingPartner)
+class ImplementingPartnerAdmin(admin.ModelAdmin):
     pass
-
-
-@admin.register(District)
-class DistrictAdmin(admin.ModelAdmin):
-    pass
-
-
-@admin.register(Ward)
-class WardAdmin(admin.ModelAdmin):
-    pass
-
-
-
