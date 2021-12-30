@@ -6,4 +6,5 @@ from django.contrib import admin
 
 urlpatterns = [
     path('admin/', admin.site.urls, name='dj-beneficiary-admin'),
+    path('', include(('dj_beneficiary.urls', 'dj-beneficiary'), namespace='dj-beneficiary')),
 ]

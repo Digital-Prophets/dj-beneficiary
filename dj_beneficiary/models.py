@@ -191,10 +191,19 @@ class AbstractIndividualBeneficiary(models.Model):
         ("phd", _("PHD")),
     )
 
-    first_name = models.CharField(_("First Name"), max_length=200)
-    last_name = models.CharField(_("Last Name"), max_length=200)
+    first_name = models.CharField(
+        _("First Name"), 
+        max_length=200
+    )
+    last_name = models.CharField(
+        _("Last Name"), 
+        max_length=200
+    )
     other_name = models.CharField(
-        _("Other Name"), max_length=200, null=True, blank=True
+        _("Other Name"), 
+        max_length=200, 
+        null=True, 
+        blank=True
     )
     gender = models.CharField(
         _("Gender"),
@@ -202,7 +211,11 @@ class AbstractIndividualBeneficiary(models.Model):
         choices=GENDER_CHOICES,
         default=GENDER_CHOICES[3][0],
     )
-    sex = models.CharField(_("Sex"), max_length=100, choices=SEX_CHOICES)
+    sex = models.CharField(
+        _("Sex"), 
+        max_length=100, 
+        choices=SEX_CHOICES
+    )
     profile_photo = ProcessedImageField(
         upload_to="profile_photo",
         processors=[ResizeToFill(512, 512)],
@@ -212,10 +225,21 @@ class AbstractIndividualBeneficiary(models.Model):
         blank=True,
     )
     phone_number = models.CharField(
-        _("Phone Number"), max_length=20, null=True, blank=True
+        _("Phone Number"),
+        max_length=20, 
+        null=True, 
+        blank=True
     )
-    email = models.EmailField(_("Email"), max_length=200, null=True, blank=True)
-    beneficiary_id = models.CharField(max_length=100, editable=False)
+    email = models.EmailField(
+        _("Email"), 
+        max_length=200, 
+        null=True, 
+        blank=True
+    )
+    beneficiary_id = models.CharField(
+        max_length=100, 
+        editable=False
+    )
     art_status = models.CharField(
         _("ART Status"),
         max_length=100,
@@ -223,7 +247,11 @@ class AbstractIndividualBeneficiary(models.Model):
         null=True,
         blank=True,
     )
-    last_vl = models.IntegerField(_("Last Viral Load"), null=True, blank=True)
+    last_vl = models.IntegerField(
+        _("Last Viral Load"), 
+        null=True, 
+        blank=True
+    )
     hiv_status = models.CharField(
         _("HIV Status"),
         choices=HIV_STATUS,
@@ -231,7 +259,12 @@ class AbstractIndividualBeneficiary(models.Model):
         null=True,
         blank=True,
     )
-    agent = models.ForeignKey(Agent, on_delete=models.PROTECT, null=True, blank=True)
+    agent = models.ForeignKey(
+        Agent, 
+        on_delete=models.PROTECT, 
+        null=True, 
+        blank=True
+    )
     registered_facility = models.ForeignKey(
         "Facility",
         on_delete=models.PROTECT,
@@ -248,13 +281,20 @@ class AbstractIndividualBeneficiary(models.Model):
         blank=True,
     )
     name_of_spouse = models.CharField(
-        _("Phone Number"), max_length=200, null=True, blank=True
+        _("Phone Number"), 
+        max_length=200, 
+        null=True, 
+        blank=True
     )
     number_of_children = models.IntegerField(
-        _("Number of children"), null=True, blank=True
+        _("Number of children"), 
+        null=True, 
+        blank=True
     )
     number_of_siblings = models.IntegerField(
-        _("Number of siblings"), null=True, blank=True
+        _("Number of siblings"), 
+        null=True, 
+        blank=True
     )
     education_level = models.CharField(
         _("Education level"),
@@ -300,7 +340,10 @@ class AbstractOrganizationBeneficiary(models.Model):
         ("Other", _("Other")),
     )
 
-    name = models.CharField(_("Organization Name"), max_length=200)
+    name = models.CharField(
+        _("Organization Name"), 
+        max_length=200
+    )
     org_type = models.CharField(
         _("Organization Type"),
         max_length=100,
@@ -315,26 +358,68 @@ class AbstractOrganizationBeneficiary(models.Model):
         blank=True,
     )
     total_beneficiaries = models.IntegerField(
-        _("Total Individual Beneficiary Count"), null=True, blank=True
+        _("Total Individual Beneficiary Count"), 
+        null=True, 
+        blank=True
     )
-    total_females = models.IntegerField(_("Total Female Count"), null=True, blank=True)
-    total_males = models.IntegerField(_("Total Male Count"), null=True, blank=True)
-    total_hhs = models.IntegerField(_("Total HHs"), null=True, blank=True)
-    female_hhs = models.IntegerField(_("Female HHs"), null=True, blank=True)
-    below_sixteen = models.IntegerField(_("Below 16 Years Old"), null=True, blank=True)
+    total_females = models.IntegerField(
+        _("Total Female Count"), 
+        null=True, 
+        blank=True
+    )
+    total_males = models.IntegerField(
+        _("Total Male Count"), 
+        null=True, 
+        blank=True
+    )
+    total_hhs = models.IntegerField(
+        _("Total HHs"), 
+        null=True, 
+        blank=True
+    )
+    female_hhs = models.IntegerField(
+        _("Female HHs"), 
+        null=True, 
+        blank=True
+    )
+    below_sixteen = models.IntegerField(
+        _("Below 16 Years Old"), 
+        null=True, 
+        blank=True
+    )
     sixteen_to_thirty = models.IntegerField(
-        _("16 to 30 Years Old"), null=True, blank=True
+        _("16 to 30 Years Old"), 
+        null=True, 
+        blank=True
     )
     thirty_to_fourty_five = models.IntegerField(
-        _("30 to 40 Years Old"), null=True, blank=True
+        _("30 to 40 Years Old"), 
+        null=True, 
+        blank=True
     )
     above_fourty_five = models.IntegerField(
-        _("Above 40 Years Old"), null=True, blank=True
+        _("Above 40 Years Old"), 
+        null=True, 
+        blank=True
     )
 
-    description = models.TextField(_("Description"), null=True, blank=True)
-    email = models.EmailField(_("Email"), max_length=200, null=True, blank=True)
-    cell = models.CharField(_("Phone Number"), max_length=100, null=True, blank=True)
+    description = models.TextField(
+        _("Description"), 
+        null=True, 
+        blank=True
+    )
+    email = models.EmailField(
+        _("Email"), 
+        max_length=200, 
+        null=True, 
+        blank=True
+    )
+    cell = models.CharField(
+        _("Phone Number"), 
+        max_length=100, 
+        null=True, 
+        blank=True
+    )
     registered_date = models.DateField(
         null=True,
         blank=True,
