@@ -15,7 +15,7 @@ class AbstractLocation(models.Model):
     name = models.CharField(
         _("Name"),
         max_length=200,
-        null=True, 
+        null=True,
         blank=True)
     created = models.DateTimeField(auto_now_add=True)
     class Meta:
@@ -192,17 +192,17 @@ class AbstractIndividualBeneficiary(models.Model):
     )
 
     first_name = models.CharField(
-        _("First Name"), 
+        _("First Name"),
         max_length=200
     )
     last_name = models.CharField(
-        _("Last Name"), 
+        _("Last Name"),
         max_length=200
     )
     other_name = models.CharField(
-        _("Other Name"), 
-        max_length=200, 
-        null=True, 
+        _("Other Name"),
+        max_length=200,
+        null=True,
         blank=True
     )
     gender = models.CharField(
@@ -212,8 +212,8 @@ class AbstractIndividualBeneficiary(models.Model):
         default=GENDER_CHOICES[3][0],
     )
     sex = models.CharField(
-        _("Sex"), 
-        max_length=100, 
+        _("Sex"),
+        max_length=100,
         choices=SEX_CHOICES
     )
     profile_photo = ProcessedImageField(
@@ -226,18 +226,18 @@ class AbstractIndividualBeneficiary(models.Model):
     )
     phone_number = models.CharField(
         _("Phone Number"),
-        max_length=20, 
-        null=True, 
+        max_length=20,
+        null=True,
         blank=True
     )
     email = models.EmailField(
-        _("Email"), 
-        max_length=200, 
-        null=True, 
+        _("Email"),
+        max_length=200,
+        null=True,
         blank=True
     )
     beneficiary_id = models.CharField(
-        max_length=100, 
+        max_length=100,
         editable=False
     )
     art_status = models.CharField(
@@ -248,8 +248,8 @@ class AbstractIndividualBeneficiary(models.Model):
         blank=True,
     )
     last_vl = models.IntegerField(
-        _("Last Viral Load"), 
-        null=True, 
+        _("Last Viral Load"),
+        null=True,
         blank=True
     )
     hiv_status = models.CharField(
@@ -260,9 +260,9 @@ class AbstractIndividualBeneficiary(models.Model):
         blank=True,
     )
     agent = models.ForeignKey(
-        Agent, 
-        on_delete=models.PROTECT, 
-        null=True, 
+        Agent,
+        on_delete=models.PROTECT,
+        null=True,
         blank=True
     )
     registered_facility = models.ForeignKey(
@@ -281,19 +281,19 @@ class AbstractIndividualBeneficiary(models.Model):
         blank=True,
     )
     name_of_spouse = models.CharField(
-        _("Phone Number"), 
-        max_length=200, 
-        null=True, 
+        _("Phone Number"),
+        max_length=200,
+        null=True,
         blank=True
     )
     number_of_children = models.IntegerField(
-        _("Number of children"), 
-        null=True, 
+        _("Number of children"),
+        null=True,
         blank=True
     )
     number_of_siblings = models.IntegerField(
-        _("Number of siblings"), 
-        null=True, 
+        _("Number of siblings"),
+        null=True,
         blank=True
     )
     education_level = models.CharField(
@@ -341,13 +341,17 @@ class AbstractOrganizationBeneficiary(models.Model):
     )
 
     name = models.CharField(
-        _("Organization Name"), 
-        max_length=200
+        _("Organization Name"),
+        max_length=200,
+        null=True,
+        blank=True
     )
     org_type = models.CharField(
         _("Organization Type"),
         max_length=100,
         choices=BENEFICIARY_ORGANIZATION_TYPE,
+        null=True,
+        blank=True
     )
     logo = ProcessedImageField(
         upload_to="org_logos",
@@ -358,66 +362,66 @@ class AbstractOrganizationBeneficiary(models.Model):
         blank=True,
     )
     total_beneficiaries = models.IntegerField(
-        _("Total Individual Beneficiary Count"), 
-        null=True, 
+        _("Total Individual Beneficiary Count"),
+        null=True,
         blank=True
     )
     total_females = models.IntegerField(
-        _("Total Female Count"), 
-        null=True, 
+        _("Total Female Count"),
+        null=True,
         blank=True
     )
     total_males = models.IntegerField(
-        _("Total Male Count"), 
-        null=True, 
+        _("Total Male Count"),
+        null=True,
         blank=True
     )
     total_hhs = models.IntegerField(
-        _("Total HHs"), 
-        null=True, 
+        _("Total HHs"),
+        null=True,
         blank=True
     )
     female_hhs = models.IntegerField(
-        _("Female HHs"), 
-        null=True, 
+        _("Female HHs"),
+        null=True,
         blank=True
     )
     below_sixteen = models.IntegerField(
-        _("Below 16 Years Old"), 
-        null=True, 
+        _("Below 16 Years Old"),
+        null=True,
         blank=True
     )
     sixteen_to_thirty = models.IntegerField(
-        _("16 to 30 Years Old"), 
-        null=True, 
+        _("16 to 30 Years Old"),
+        null=True,
         blank=True
     )
     thirty_to_fourty_five = models.IntegerField(
-        _("30 to 40 Years Old"), 
-        null=True, 
+        _("30 to 40 Years Old"),
+        null=True,
         blank=True
     )
     above_fourty_five = models.IntegerField(
-        _("Above 40 Years Old"), 
-        null=True, 
+        _("Above 40 Years Old"),
+        null=True,
         blank=True
     )
 
     description = models.TextField(
-        _("Description"), 
-        null=True, 
+        _("Description"),
+        null=True,
         blank=True
     )
     email = models.EmailField(
-        _("Email"), 
-        max_length=200, 
-        null=True, 
+        _("Email"),
+        max_length=200,
+        null=True,
         blank=True
     )
     cell = models.CharField(
-        _("Phone Number"), 
-        max_length=100, 
-        null=True, 
+        _("Phone Number"),
+        max_length=100,
+        null=True,
         blank=True
     )
     registered_date = models.DateField(
@@ -425,6 +429,7 @@ class AbstractOrganizationBeneficiary(models.Model):
         blank=True,
     )
     created = models.DateTimeField(auto_now_add=True)
+
 
     class Meta:
         # NOTE: This means we can not reuse this model directly but subclass it with inheritance and add extra fields or override existing fields
